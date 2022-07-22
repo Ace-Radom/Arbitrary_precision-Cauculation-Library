@@ -1,6 +1,6 @@
 #include"apmath.h"
 
-/* change one integer into char* */
+/* change one integer into string */
 std::string DTchange( long long __Integer = 0LL ){
     std::string _ANT = "";
     while ( __Integer != 0 )
