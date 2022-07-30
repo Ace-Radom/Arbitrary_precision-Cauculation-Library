@@ -4,6 +4,9 @@
 #include<string>
 #include<cmath>
 #include<sstream>
+#include<stack>
+
+#define INTER( x , y , z ) ( x >= y && x <= z )
 
 #include"apbasic.h"
 

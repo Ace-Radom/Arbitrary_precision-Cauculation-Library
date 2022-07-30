@@ -74,8 +74,33 @@ std::string apadd( std::string __NUM1, std::string __NUM2 , const uint8_t __digi
     _CalcBit_Int_Temp = 0;
     // reset all
 
+    std::stack <CLACBIT> _Calcbit_Cache;
+
     for ( int i = 1 ; i <= std::max( __NUM1_len / __digit + 1 , __NUM2_len / __digit + 1 ) ; i++ )
     {
-        
+        CLACBIT _CLACBITTEMP;
+        ( ( __NUM1_len / __digit + 1 ) <= i ) ? _CLACBITTEMP._NUM1 = __NUM1_ClacBit_TempArray[i] : _CLACBITTEMP._NUM1 = 0;
+        ( ( __NUM2_len / __digit + 1 ) <= i ) ? _CLACBITTEMP._NUM2 = __NUM2_ClacBit_TempArray[i] : _CLACBITTEMP._NUM2 = 0;
+        _CLACBITTEMP._BitANS = _CLACBITTEMP._NUM1 + _CLACBITTEMP._NUM2;
+        _Calcbit_Cache.push( _CLACBITTEMP );
+    }
+
+    long long _ANS_Cache;
+    std::stack <std::string> _ANS_STACK;
+    bool _Carry_Necessary = false;
+    while ( _Calcbit_Cache.size() )
+    {
+        _ANS_Cache = _Calcbit_Cache.top()._BitANS;
+        if ( _Carry_Necessary )
+        {
+            _ANS_Cache++;
+        }
+        _Carry_Necessary = false;
+        if ( !INTER( _ANS_Cache , _CalcBit_Min , _CalcBit_Max ) )
+        {
+            _Carry_Necessary = true;
+            _ANS_Cache -= pow( 10 , __digit );
+        }
+        _ANS_STACK.push( std::to_string( _ANS_Cache ) );
     }
 }
